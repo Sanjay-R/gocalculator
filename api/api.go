@@ -6,12 +6,12 @@ import (
 )
 
 type CalculatorRequest struct {
-	Left int32 `json:"left"`
-	Right int32 `json:"right"`
+	Number1 int `json:"number1"`
+	Number2 int `json:"number2"`
 }
 
 type CalculatorResponse struct {
-	Answer int32
+	Result int `json:"result"`
 }
 
 //Error response when an error occurs

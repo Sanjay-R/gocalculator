@@ -47,7 +47,7 @@ func Addition(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := api.CalculatorResponse {
-		Answer: body.Left + body.Right,
+		Result: body.Number1 + body.Number2,
 	}
 
 	writeResponse(w, response)
@@ -62,7 +62,7 @@ func Subtraction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := api.CalculatorResponse {
-		Answer: body.Left - body.Right,
+		Result: body.Number1 - body.Number2,
 	}
 
 	writeResponse(w, response)
@@ -77,7 +77,7 @@ func Multiplication(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := api.CalculatorResponse {
-		Answer: body.Left * body.Right,
+		Result: body.Number1 * body.Number2,
 	}
 
 	writeResponse(w, response)
@@ -90,7 +90,7 @@ func Division(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if (body.Right == 0) {
+	if (body.Number2 == 0) {
 		slog.Error("Invalid value 0 in denominator")
 		api.RequestErrorHandler(w, ErrZeroInDenominator)
 		return
@@ -98,7 +98,7 @@ func Division(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("Request received for Division", "body", body)
 	response := api.CalculatorResponse {
-		Answer: body.Left / body.Right,
+		Result: body.Number1 / body.Number2,
 	}
 
 	writeResponse(w, response)
