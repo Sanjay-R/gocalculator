@@ -28,6 +28,6 @@ func Authorization(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r) //in order to call the next middleware in line
 		//or the Handler function for the endpoint if there's no middleware left
-		//Authorization -> next.ServeHTTP -> GetCoinBalance
+		//Authorization -> next.ServeHTTP -> Sum/Addition/Subtraction/Multiplication/Division
 	})
 }
