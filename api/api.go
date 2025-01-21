@@ -6,8 +6,8 @@ import (
 )
 
 type CalculatorRequest struct {
-	Left int32
-	Right int32
+	Left int32 `json:"left"`
+	Right int32 `json:"right"`
 }
 
 type CalculatorResponse struct {
