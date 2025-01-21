@@ -11,7 +11,7 @@ This calculator supports basic operations:
 - Multiplication
 - Division
 
-The OpenAPI specification found in the root directory of this project describes the requirements for the API.
+The OpenAPI specification found in the [api](/api/api-spec.yaml) directory of this project describes the requirements for the API.
 
 ## Credits
 Dreams of Code [Youtube video](https://youtu.be/gXmznGEW9vo?t=157)

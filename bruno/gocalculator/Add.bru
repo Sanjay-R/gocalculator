@@ -1,0 +1,22 @@
+meta {
+  name: Add
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/add
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: random
+}
+
+body:json {
+  {
+    "left": 2,
+    "right": 2
+  }
+}
