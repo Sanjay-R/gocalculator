@@ -21,25 +21,81 @@ func getBody(w http.ResponseWriter, r *http.Request) (api.CalculatorRequest, err
 	return body, nil
 }
 
+//can do generics here: https://arc.net/l/quote/euranprl
+func writeResponse[T api.CalculatorResponse](w http.ResponseWriter, response T) {
+	//writte it to the response writer
+	w.Header().Set("Content-Type", "application/json")
+	err:= json.NewEncoder(w).Encode(response)
+	if err != nil {
+		slog.Error(err.Error())
+		api.InternalErrorHandler(w)
+		return
+	}
+}
+
 func Addition(w http.ResponseWriter, r *http.Request) {
 	// Assume call is already authenticated
+	body, err := getBody(w, r)
+	slog.Info("Request received for Addition", "body", body)
+
+	if err != nil {
+		return
+	}
+
+	response := api.CalculatorResponse {
+		Answer: body.Left + body.Right,
+	}
+
+	writeResponse(w, response)
+}
+
+func Subtraction(w http.ResponseWriter, r *http.Request) {
+	body, err := getBody(w, r)
+	slog.Info("Request received for Subtraction", "body", body)
+
+	if err != nil {
+		return
+	}
+
+	response := api.CalculatorResponse {
+		Answer: body.Left - body.Right,
+	}
+
+	writeResponse(w, response)
+}
+
+func Multiplication(w http.ResponseWriter, r *http.Request) {
+	body, err := getBody(w, r)
+	slog.Info("Request received for Multiplication", "body", body)
+
+	if err != nil {
+		return
+	}
+
+	response := api.CalculatorResponse {
+		Answer: body.Left * body.Right,
+	}
+
+	writeResponse(w, response)
+}
+
+func Division(w http.ResponseWriter, r *http.Request) {
 	body, err := getBody(w, r)
 
 	if err != nil {
 		return
 	}
 
-	slog.Info("Request received", "body", body)
-	response := api.CalculatorResponse {
-		Answer: body.Left + body.Right,
-	}
-
-	//writte it to the response writer
-	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(response)
-	if err != nil {
-		slog.Error(err.Error())
-		api.InternalErrorHandler(w)
+	if (body.Right == 0) {
+		slog.Error("Invalid value 0 in denominator")
+		api.RequestErrorHandler(w, err)
 		return
 	}
+
+	slog.Info("Request received for Subtraction", "body", body)
+	response := api.CalculatorResponse {
+		Answer: body.Left / body.Right,
+	}
+
+	writeResponse(w, response)
 }

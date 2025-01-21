@@ -1,11 +1,11 @@
 meta {
-  name: Add
+  name: Divide
   type: http
-  seq: 2
+  seq: 5
 }
 
 post {
-  url: http://localhost:3000/add
+  url: http://localhost:3000/divide
   body: json
   auth: none
 }
@@ -16,7 +16,7 @@ headers {
 
 body:json {
   {
-    "left": 2,
-    "right": 8
+    "left": 30,
+    "right": 10
   }
 }

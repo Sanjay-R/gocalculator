@@ -21,4 +21,7 @@ func ApiHandler(r *chi.Mux) {
 	r.Use(middleware.Authorization)
 
 	r.Post("/add", Addition)
+	r.Post("/subtract", Subtraction)
+	r.Post("/multiply", Multiplication)
+	r.Post("/divide", Division)
 }
