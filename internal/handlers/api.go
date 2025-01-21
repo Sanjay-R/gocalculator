@@ -16,7 +16,7 @@ func ApiHandler(r *chi.Mux) {
 
 	slog.Info("ApiHandler ready!")
 
-	// Middleware for /add route
+	// Middleware for any route
 	// to check if user is authorized to access this data first
 	r.Use(middleware.Authorization)
 

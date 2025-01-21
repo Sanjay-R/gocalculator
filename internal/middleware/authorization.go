@@ -1,15 +1,12 @@
 package middleware
 
 import (
-	"errors"
 	"log/slog"
 	"net/http"
 
 	"github.com/Sanjay-R/gocalculator/api"
+	customError "github.com/Sanjay-R/gocalculator/internal/errors"
 )
-
-//custom unauthorized error to be used in this file
-var ErrUnAuthorized = errors.New("invalid username or token")
 
 // auth function used as middleare
 // thus gotta follow a certain signature -> take in- and return- http handler interface
@@ -21,8 +18,8 @@ func Authorization(next http.Handler) http.Handler {
 		var token = r.Header.Get("Authorization")
 
 		if (token != "devtoken") {
-			slog.Error(ErrUnAuthorized.Error())
-			api.RequestErrorHandler(w, ErrUnAuthorized)
+			slog.Error(customError.ErrUnAuthorized.Error())
+			api.RequestErrorHandler(w, customError.ErrUnAuthorized)
 			return
 		}
 
