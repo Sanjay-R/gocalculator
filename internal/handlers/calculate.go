@@ -2,11 +2,15 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"log/slog"
 	"net/http"
 
 	"github.com/Sanjay-R/gocalculator/api"
 )
+
+//custom unauthorized error to be used in this file
+var ErrZeroInDenominator = errors.New("can't divide by 0")
 
 //private function?
 func getBody(w http.ResponseWriter, r *http.Request) (api.CalculatorRequest, error) {
@@ -88,11 +92,11 @@ func Division(w http.ResponseWriter, r *http.Request) {
 
 	if (body.Right == 0) {
 		slog.Error("Invalid value 0 in denominator")
-		api.RequestErrorHandler(w, err)
+		api.RequestErrorHandler(w, ErrZeroInDenominator)
 		return
 	}
 
-	slog.Info("Request received for Subtraction", "body", body)
+	slog.Info("Request received for Division", "body", body)
 	response := api.CalculatorResponse {
 		Answer: body.Left / body.Right,
 	}
