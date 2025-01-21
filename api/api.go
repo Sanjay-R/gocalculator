@@ -14,6 +14,15 @@ type CalculatorResponse struct {
 	Result int `json:"result"`
 }
 
+type DivisionRequest struct {
+	Dividend int `json:"dividend"`
+	Divisor int `json:"divisor"`
+}
+
+type SumRequest struct {
+	Items []int `json:"items"`
+}
+
 //Error response when an error occurs
 type Error struct {
 	Code int

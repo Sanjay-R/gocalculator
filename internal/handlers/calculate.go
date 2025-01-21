@@ -84,21 +84,50 @@ func Multiplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func Division(w http.ResponseWriter, r *http.Request) {
-	body, err := getBody(w, r)
+	var body api.DivisionRequest
+	err := json.NewDecoder(r.Body).Decode(&body)
 
 	if err != nil {
+		slog.Error(err.Error())
+		api.RequestErrorHandler(w, err)
 		return
 	}
 
-	if (body.Number2 == 0) {
+	slog.Info("Request received for Division", "body", body)
+
+	if (body.Divisor == 0) {
 		slog.Error("Invalid value 0 in denominator")
 		api.RequestErrorHandler(w, ErrZeroInDenominator)
 		return
 	}
 
-	slog.Info("Request received for Division", "body", body)
 	response := api.CalculatorResponse {
-		Result: body.Number1 / body.Number2,
+		Result: body.Dividend / body.Divisor,
+	}
+
+	writeResponse(w, response)
+}
+
+func Sum(w http.ResponseWriter, r *http.Request) {
+	var body api.SumRequest
+	err := json.NewDecoder(r.Body).Decode(&body)
+
+	if err != nil {
+		slog.Error(err.Error())
+		api.RequestErrorHandler(w, err)
+		return
+	}
+
+	slog.Info("Request received for Sum", "body", body)
+
+	// Sum up all the items in the array
+	var sum int
+	for i := 0; i < len(body.Items); i++ {
+		sum += body.Items[i]
+	}
+
+	response := api.CalculatorResponse {
+		Result: sum,
 	}
 
 	writeResponse(w, response)

@@ -1,11 +1,11 @@
 meta {
-  name: Divide
+  name: Sum
   type: http
-  seq: 5
+  seq: 6
 }
 
 post {
-  url: http://localhost:3000/divide
+  url: http://localhost:3000/sum
   body: json
   auth: none
 }
@@ -16,7 +16,6 @@ headers {
 
 body:json {
   {
-    "dividend": 35,
-    "divisor": 7
+    "items": [1, 2, 3, 0, -6, 10]
   }
 }

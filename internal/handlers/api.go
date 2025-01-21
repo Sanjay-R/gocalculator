@@ -24,4 +24,5 @@ func ApiHandler(r *chi.Mux) {
 	r.Post("/subtract", Subtraction)
 	r.Post("/multiply", Multiplication)
 	r.Post("/divide", Division)
+	r.Post("/sum", Sum)
 }
