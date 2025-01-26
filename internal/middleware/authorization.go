@@ -13,11 +13,11 @@ import (
 func Authorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("Authorizing")
-		
+
 		//define all logic for authorizing the http request
 		var token = r.Header.Get("Authorization")
 
-		if (token != "devtoken") {
+		if token != "devtoken" {
 			slog.Error(customError.ErrUnAuthorized.Error())
 			api.RequestErrorHandler(w, customError.ErrUnAuthorized)
 			return

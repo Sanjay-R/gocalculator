@@ -9,7 +9,7 @@ import (
 	customError "github.com/Sanjay-R/gocalculator/internal/errors"
 )
 
-//private function?
+// private function?
 func getBody(w http.ResponseWriter, r *http.Request) (api.CalculatorRequest, error) {
 	var body api.CalculatorRequest
 	err := json.NewDecoder(r.Body).Decode(&body) // https://medium.com/what-i-talk-about-when-i-talk-about-technology/go-code-snippet-json-encoder-and-json-decoder-818f81864614
@@ -22,11 +22,11 @@ func getBody(w http.ResponseWriter, r *http.Request) (api.CalculatorRequest, err
 	return body, nil
 }
 
-//can do generics here: https://arc.net/l/quote/euranprl
+// can do generics here: https://arc.net/l/quote/euranprl
 func writeResponse[T api.CalculatorResponse](w http.ResponseWriter, response T) {
 	//writte it to the response writer
 	w.Header().Set("Content-Type", "application/json")
-	err:= json.NewEncoder(w).Encode(response)
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		slog.Error(err.Error())
 		api.InternalErrorHandler(w)
@@ -43,7 +43,7 @@ func Addition(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := api.CalculatorResponse {
+	response := api.CalculatorResponse{
 		Result: body.Number1 + body.Number2,
 	}
 
@@ -58,7 +58,7 @@ func Subtraction(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := api.CalculatorResponse {
+	response := api.CalculatorResponse{
 		Result: body.Number1 - body.Number2,
 	}
 
@@ -73,7 +73,7 @@ func Multiplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := api.CalculatorResponse {
+	response := api.CalculatorResponse{
 		Result: body.Number1 * body.Number2,
 	}
 
@@ -92,13 +92,13 @@ func Division(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("Request received for Division", "body", body)
 
-	if (body.Divisor == 0) {
+	if body.Divisor == 0 {
 		slog.Error("Invalid value 0 in denominator")
 		api.RequestErrorHandler(w, customError.ErrZeroInDenominator)
 		return
 	}
 
-	response := api.CalculatorResponse {
+	response := api.CalculatorResponse{
 		Result: body.Dividend / body.Divisor,
 	}
 
@@ -123,7 +123,7 @@ func Sum(w http.ResponseWriter, r *http.Request) {
 		sum += body.Items[i]
 	}
 
-	response := api.CalculatorResponse {
+	response := api.CalculatorResponse{
 		Result: sum,
 	}
 

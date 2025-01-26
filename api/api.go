@@ -16,24 +16,24 @@ type CalculatorResponse struct {
 
 type DivisionRequest struct {
 	Dividend int `json:"dividend"`
-	Divisor int `json:"divisor"`
+	Divisor  int `json:"divisor"`
 }
 
 type SumRequest struct {
 	Items []int `json:"items"`
 }
 
-//Error response when an error occurs
+// Error response when an error occurs
 type Error struct {
-	Code int
+	Code    int
 	Message string
 }
 
-//used to write an error response to the HTTP response writer
-//will return error response to the person who called the endpoint
+// used to write an error response to the HTTP response writer
+// will return error response to the person who called the endpoint
 func writeError(w http.ResponseWriter, message string, code int) {
-	resp := Error {
-		Code: code,
+	resp := Error{
+		Code:    code,
 		Message: message,
 	}
 
@@ -42,9 +42,9 @@ func writeError(w http.ResponseWriter, message string, code int) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-//to have different types of error responses -> make wrapper below
+// to have different types of error responses -> make wrapper below
 var (
-	RequestErrorHandler = func (w http.ResponseWriter, err error)  {
+	RequestErrorHandler = func(w http.ResponseWriter, err error) {
 		writeError(w, err.Error(), http.StatusBadRequest)
 	}
 
