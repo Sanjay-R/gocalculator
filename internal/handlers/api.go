@@ -16,6 +16,9 @@ func ApiHandler(r *chi.Mux) {
 
 	slog.Info("ApiHandler ready!")
 
+	r.Use(chimiddle.Recoverer) // Recoverer is a middleware that recovers from panics, logs the panic (and a stack trace), and returns a HTTP 500 (Internal Server Error) status if possible.
+	r.Use(chimiddle.Logger) // Logs the start and end of each request
+
 	// Middleware for any route
 	// to check if user is authorized to access this data first
 	r.Use(middleware.Authorization)

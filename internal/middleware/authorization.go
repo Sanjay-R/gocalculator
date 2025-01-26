@@ -12,7 +12,7 @@ import (
 // thus gotta follow a certain signature -> take in- and return- http handler interface
 func Authorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		slog.Info("Authorizing")
+		slog.Info("Authorizing...")
 
 		//define all logic for authorizing the http request
 		var token = r.Header.Get("Authorization")
