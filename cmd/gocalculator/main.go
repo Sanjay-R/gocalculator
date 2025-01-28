@@ -18,7 +18,7 @@ func main() {
 
 	envErr := godotenv.Load(".env")
 	if envErr != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file: ", envErr)
 	}
 
 	var r *chi.Mux = chi.NewRouter()
