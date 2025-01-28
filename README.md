@@ -16,6 +16,7 @@ This calculator supports basic operations:
 - Subtraction
 - Multiplication
 - Division
+- Summation of all values in an array
 
 The OpenAPI specification found in the [api](/api/api-spec.yaml) directory of this project describes the requirements for the API.
 
